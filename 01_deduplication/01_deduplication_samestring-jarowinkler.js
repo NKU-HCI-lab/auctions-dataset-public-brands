@@ -26,7 +26,7 @@ for(let i=0;i<brands.length;i++){
 			let similarity=jaroWinkler(w1,w2)
 			if(similarity>SIMILARITY_THRESHOLD){
 				console.log(`Jaro Winkler: ${brands[i]},${brands[j]} - ${similarity.toFixed(2)}`)
-				jaro_winkler.push(`${brands[i]},${brands[j]},${similarity.toFixed(2)}`)
+				jaro_winkler.push(`${brands[i]}\t${brands[j]}\t${similarity.toFixed(2)}`)
 			}
 		}
 	}
