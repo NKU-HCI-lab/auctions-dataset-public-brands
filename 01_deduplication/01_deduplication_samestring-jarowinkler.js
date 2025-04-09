@@ -19,9 +19,10 @@ for(let i=0;i<brands.length;i++){
 	for(let j=i+1;j<brands.length;j++){
 		const w2=brands[j].replace(/[^a-zA-Z0-9]+/g,'').replace(/^VISIT THE /,'').replace(/ STORE$/,'').trim();
 		if(w1==w2){
-			console.log(`Same string: ${brands[i]},${brands[j]}`)
-			same_string.push(brands[j])
+			//console.log(`Same string: ${brands[i]},${brands[j]}`)
+			//same_string.push(brands[j])
 			if(found.indexOf(w1)<0) found.push(w1)
+			jaro_winkler.push(`${brands[i]}\t${brands[j]}\t1.0`)
 		}else{
 			let similarity=jaroWinkler(w1,w2)
 			if(similarity>SIMILARITY_THRESHOLD){
@@ -30,7 +31,7 @@ for(let i=0;i<brands.length;i++){
 			}
 		}
 	}
-	if(same_string.length>0) fs.appendFileSync('./same_string.csv',`${brands[i]}\t`+same_string.join('\t')+'\n')
+	//if(same_string.length>0) fs.appendFileSync('./same_string.csv',`${brands[i]}\t`+same_string.join('\t')+'\n')
 	if(jaro_winkler.length>0) fs.appendFileSync('./jaro_winkler.csv',jaro_winkler.join('\n')+'\n')
 }
 
