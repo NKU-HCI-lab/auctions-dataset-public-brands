@@ -14,10 +14,10 @@ for(let i=0;i<brands.length;i++){
 	let same_string=[]
 	let jaro_winkler=[]
 	let processed=[]
-	let w1=brands[i].replace(/[^a-zA-Z0-9]+/g,'').replace(/^VISIT THE /,'').replace(/ STORE$/,'').trim()
+	let w1=brands[i].trim().replace(/^VISIT THE /,'').replace(/ STORE$/,'').replace(/[^a-zA-Z0-9]+/g,'')
 	if(found.indexOf(w1)>0) continue
 	for(let j=i+1;j<brands.length;j++){
-		const w2=brands[j].replace(/[^a-zA-Z0-9]+/g,'').replace(/^VISIT THE /,'').replace(/ STORE$/,'').trim();
+		const w2=brands[j].trim().replace(/^VISIT THE /,'').replace(/ STORE$/,'').replace(/[^a-zA-Z0-9]+/g,'')
 		if(w1==w2){
 			//console.log(`Same string: ${brands[i]},${brands[j]}`)
 			//same_string.push(brands[j])
