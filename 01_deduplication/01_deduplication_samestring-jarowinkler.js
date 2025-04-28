@@ -14,10 +14,10 @@ for(let i=0;i<brands.length;i++){
 	let same_string=[]
 	let jaro_winkler=[]
 	let processed=[]
-	let w1=brands[i].trim().replace(/^VISIT THE /,'').replace(/ STORE$/,'').replace(/[^a-zA-Z0-9]+/g,'')
+	let w1=applyRules(brands[i].trim()).replace(/[^a-zA-Z0-9]+/g,'')
 	if(found.indexOf(w1)>0) continue
 	for(let j=i+1;j<brands.length;j++){
-		const w2=brands[j].trim().replace(/^VISIT THE /,'').replace(/ STORE$/,'').replace(/[^a-zA-Z0-9]+/g,'')
+		const w2=applyRules(brands[j].trim())
 		if(w1==w2){
 			//console.log(`Same string: ${brands[i]},${brands[j]}`)
 			//same_string.push(brands[j])
@@ -35,6 +35,16 @@ for(let i=0;i<brands.length;i++){
 	if(jaro_winkler.length>0) fs.appendFileSync('./jaro_winkler.csv',jaro_winkler.join('\n')+'\n')
 }
 
+
+function applyRules(brand){
+	brand=brand.trim()
+	// 1. "VISIT THE X STORE" Same format
+	const match=brand.match(/^VISIT\s+THE\s+(.+?)\s+STORE$/i);
+	if(match) return match[1];
+	// 2. "?BRAND" Question mark before brand name
+	brand=brand.replace(/^\?+/g,'')
+	return brand;
+}
 
 /* WORD SIMILARITY FUNCTIONS */
 
