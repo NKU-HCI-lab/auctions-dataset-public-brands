@@ -14,14 +14,14 @@ for(let i=0;i<brands.length;i++){
 	let same_string=[]
 	let jaro_winkler=[]
 	let processed=[]
-	let w1=applyRules(brands[i].trim()).replace(/[^a-zA-Z0-9]+/g,'')
+	let w1=applyRules(brands[i])
 	if(found.indexOf(w1)>0) continue
 	for(let j=i+1;j<brands.length;j++){
-		const w2=applyRules(brands[j].trim())
+		const w2=applyRules(brands[j])
 		if(w1==w2){
 			//console.log(`Same string: ${brands[i]},${brands[j]}`)
 			//same_string.push(brands[j])
-			if(found.indexOf(w1)<0) found.push(w1)
+			//if(found.indexOf(w1)<0) found.push(w1)
 			jaro_winkler.push(`${brands[i]}\t${brands[j]}\t1.0`)
 		}else{
 			let similarity=jaroWinkler(w1,w2)
@@ -37,7 +37,8 @@ for(let i=0;i<brands.length;i++){
 
 
 function applyRules(brand){
-	brand=brand.trim()
+	// Remove all non-alphanumeric characters
+	brand=brand.trim().replace(/[^a-zA-Z0-9]+/g,'').trim()
 	// 1. "VISIT THE X STORE" Same format
 	const match=brand.match(/^VISIT\s+THE\s+(.+?)\s+STORE$/i);
 	if(match) return match[1];
