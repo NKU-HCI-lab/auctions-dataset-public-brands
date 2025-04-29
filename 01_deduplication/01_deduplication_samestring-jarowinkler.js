@@ -40,7 +40,7 @@ function applyRules(brand){
 	// Remove all non-alphanumeric characters
 	brand=brand.trim().replace(/[^a-zA-Z0-9]+/g,'').trim()
 	// 1. "VISIT THE X STORE" Same format
-	const match=brand.match(/^VISIT\s+THE\s+(.+?)\s+STORE$/i);
+	const match=brand.match(/^VISITTHE(.+?)STORE$/i);
 	if(match) return match[1];
 	// 2. "?BRAND" Question mark before brand name
 	brand=brand.replace(/^\?+/g,'')
