@@ -37,11 +37,15 @@ for(let i=0;i<brands.length;i++){
 
 
 function applyRules(brand){
-	// Remove all non-alphanumeric characters
-	brand=brand.trim().replace(/[^a-zA-Z0-9]+/g,'').trim()
+	// Remove all instances of "BRAND INC" and "BRAND LLC"
+	brand=brand.trim().replace(/(INC|LLC)[^a-zA-Z0-9]?$/,'')
+	// Remove all instances of "BY BRAND"
+	brand=brand.trim().replace(/^BY /,'')
+	// Remove all non-ASCII, non-alphanumeric characters
+	brand=brand.trim().replace(/&#\d+;/g, '').replace(/[^a-zA-Z0-9]/g,'').trim()
 	// 1. "VISIT THE X STORE" Same format
-	const match=brand.match(/^VISITTHE(.+?)STORE$/i);
-	if(match) return match[1];
+	const match=brand.match(/^VISITTHE(.+?)STORE$/i)
+	if(match) return match[1]
 	// 2. "?BRAND" Question mark before brand name
 	brand=brand.replace(/^\?+/g,'')
 	return brand;
