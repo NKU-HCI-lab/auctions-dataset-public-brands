@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Brand Keys from CSV</title>
+</head>
+<body>
+  <h1>Brand Keys</h1>
+  <ul id="brand-keys"></ul>
+
+  <script>
+    fetch('../brands_canonical.csv')
+      .then(response => response.text())
+      .then(csvText => {
+        const lines = csvText.trim().split('\n');
+        const ul = document.getElementById('brand-keys');
+        lines.forEach(line => {
+          const li = document.createElement('li');
+          li.textContent = line.trim();
+          ul.appendChild(li);
+        });
+      })
+      .catch(err => console.error('Failed to load CSV:', err));
+  </script>
+</body>
+</html>

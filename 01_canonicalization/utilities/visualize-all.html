@@ -1,0 +1,48 @@
+<!-- table.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Brand Table</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Brand Table</h1>
+  <table id="brand-table">
+    <thead>
+      <tr id="head-row"></tr>
+    </thead>
+    <tbody>
+      <tr id="value-row"></tr>
+    </tbody>
+  </table>
+
+  <script>
+    fetch('../brands_canonical.json')
+      .then(response => response.json())
+      .then(data => {
+        const headRow = document.getElementById('head-row');
+        const valueRow = document.getElementById('value-row');
+
+        for (const key in data) {
+          const th = document.createElement('th');
+          th.textContent = key;
+          headRow.appendChild(th);
+
+          const td = document.createElement('td');
+          td.innerHTML = data[key].join('<br>');
+          valueRow.appendChild(td);
+        }
+      })
+      .catch(err => console.error('Failed to load JSON:', err));
+  </script>
+</body>
+</html>
